@@ -27,9 +27,12 @@ func SessionCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// save it to redis
-	db.RDB.HSet(r.Context(), session.Id,
+	_, err = db.RDB.HSet(r.Context(), session.Id,
 		"password", session.PasswordHashed,
-	)
+	).Result()
+	if err != redis.Nil {
+		panic(err)
+	}
 
 	// return the session
 	render.Render(w, r, session)
