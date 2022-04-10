@@ -1,15 +1,14 @@
-package router
+package websocket
 
 import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/karmek-k/frontpad/pkg/router/messages"
 	"gopkg.in/olahol/melody.v1"
 )
 
 func routeMessages(s *melody.Session, messageBytes []byte) {
-	var msg *messages.Message
+	var msg *Message
 
 	err := json.Unmarshal(messageBytes, msg)
 	if err != nil {
@@ -17,13 +16,13 @@ func routeMessages(s *melody.Session, messageBytes []byte) {
 	}
 
 	switch msg.Type {
-	case messages.CHAT:
+	case CHAT:
 		// chat message
-	case messages.CODE_MARKUP:
+	case CODE_MARKUP:
 		// html
-	case messages.CODE_STYLING:
+	case CODE_STYLING:
 		// css
-	case messages.CODE_SCRIPT:
+	case CODE_SCRIPT:
 		// js
 	}
 }
