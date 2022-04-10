@@ -1,6 +1,8 @@
 package router
 
 import (
+	"net/http"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/karmek-k/frontpad/pkg/router/routes"
@@ -9,6 +11,7 @@ import (
 // CreateRouter creates a new chi router
 func CreateRouter() *chi.Mux {
 	r := chi.NewRouter()
+	m := CreateWebSocket()
 
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
@@ -18,6 +21,10 @@ func CreateRouter() *chi.Mux {
 			r.Post("/", routes.SessionCreate)
 			r.Delete("/{id}", routes.SessionDelete)
 		})
+	})
+
+	r.Get("/ws", func(w http.ResponseWriter, r *http.Request) {
+		m.HandleRequest(w, r)
 	})
 
 	return r
