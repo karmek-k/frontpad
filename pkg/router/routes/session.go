@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/render"
 	"github.com/go-redis/redis/v8"
 	"github.com/karmek-k/frontpad/pkg/db"
 	"github.com/karmek-k/frontpad/pkg/db/models"
@@ -32,12 +31,12 @@ func SessionCreate(w http.ResponseWriter, r *http.Request) {
 	err = db.RDB.HSet(r.Context(), session.Id,
 		"password", session.PasswordHashed,
 	).Err()
-	if err != redis.Nil {
+	if err != nil {
 		panic(err)
 	}
 
 	// return the session
-	render.Render(w, r, session)
+	renderer.JSON(w, http.StatusCreated, session)
 }
 
 func SessionDelete(w http.ResponseWriter, r *http.Request) {
