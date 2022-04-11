@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/karmek-k/frontpad/pkg/db/models"
 	"github.com/karmek-k/frontpad/pkg/websocket/messages"
 	"gopkg.in/olahol/melody.v1"
 )
 
 func routeMessages(s *melody.Session, messageBytes []byte) {
-	var msg *Message
+	var msg *models.Message
 
 	err := json.Unmarshal(messageBytes, msg)
 	if err != nil {
@@ -17,13 +18,13 @@ func routeMessages(s *melody.Session, messageBytes []byte) {
 	}
 
 	switch msg.Type {
-	case CHAT:
+	case models.CHAT:
 		break  // implement later
-	case CODE_MARKUP:
+	case models.CODE_MARKUP:
 		messages.HandleCodeMarkupMessage(s, msg.Content)
-	case CODE_STYLING:
+	case models.CODE_STYLING:
 		// css
-	case CODE_SCRIPT:
+	case models.CODE_SCRIPT:
 		// js
 	}
 }
