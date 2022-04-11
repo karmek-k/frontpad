@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/karmek-k/frontpad/pkg/websocket/messages"
 	"gopkg.in/olahol/melody.v1"
 )
 
@@ -17,9 +18,9 @@ func routeMessages(s *melody.Session, messageBytes []byte) {
 
 	switch msg.Type {
 	case CHAT:
-		// chat message
+		break  // implement later
 	case CODE_MARKUP:
-		// html
+		messages.HandleCodeMarkupMessage(s, msg.Content)
 	case CODE_STYLING:
 		// css
 	case CODE_SCRIPT:
