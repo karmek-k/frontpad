@@ -7,6 +7,5 @@ import (
 )
 
 func HandleCodeMarkupMessage(s *melody.Session, msg *models.Message) error {
-	// TODO: use namespaced strings instead of hashes
 	return db.RDB.Set(db.Ctx, msg.SessionId+":markup", msg.Content, 0).Err()
 }

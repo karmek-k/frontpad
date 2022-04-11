@@ -2,6 +2,7 @@ package routes
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-redis/redis/v8"
@@ -28,9 +29,7 @@ func SessionCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// save it to redis
-	err = db.RDB.HSet(db.Ctx, session.Id,
-		"password", session.PasswordHashed,
-	).Err()
+	err = db.RDB.Set(db.Ctx, session.Id, session.PasswordHashed, time.Hour).Err()
 	if err != nil {
 		panic(err)
 	}
@@ -42,7 +41,7 @@ func SessionCreate(w http.ResponseWriter, r *http.Request) {
 func SessionDelete(w http.ResponseWriter, r *http.Request) {
 	// find session in redis
 	id := chi.URLParam(r, "id")
-	hashed, err := db.RDB.HGet(db.Ctx, id, "password").Result()
+	hashed, err := db.RDB.Get(db.Ctx, id).Result()
 
 	if err == redis.Nil {
 		w.WriteHeader(http.StatusNotFound)
