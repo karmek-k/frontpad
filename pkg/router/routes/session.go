@@ -28,7 +28,7 @@ func SessionCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// save it to redis
-	err = db.RDB.HSet(r.Context(), session.Id,
+	err = db.RDB.HSet(db.Ctx, session.Id,
 		"password", session.PasswordHashed,
 	).Err()
 	if err != nil {
@@ -42,7 +42,7 @@ func SessionCreate(w http.ResponseWriter, r *http.Request) {
 func SessionDelete(w http.ResponseWriter, r *http.Request) {
 	// find session in redis
 	id := chi.URLParam(r, "id")
-	hashed, err := db.RDB.HGet(r.Context(), id, "password").Result()
+	hashed, err := db.RDB.HGet(db.Ctx, id, "password").Result()
 
 	if err == redis.Nil {
 		w.WriteHeader(http.StatusNotFound)
@@ -59,7 +59,7 @@ func SessionDelete(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// delete the session
-	_ = db.RDB.HDel(r.Context(), id).Err()
+	_ = db.RDB.HDel(db.Ctx, id).Err()
 
 	w.WriteHeader(http.StatusNoContent)
 }
