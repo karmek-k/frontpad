@@ -10,6 +10,7 @@ const (
 )
 
 type Message struct {
-	Type    MessageType `json:"type"`
-	Content string      `json:"content"`
+	Type      MessageType `json:"type"`
+	SessionId string      `json:"sessionId"`
+	Content   string      `json:"content"`
 }

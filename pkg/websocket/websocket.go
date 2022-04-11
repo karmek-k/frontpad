@@ -23,7 +23,7 @@ func routeMessages(s *melody.Session, messageBytes []byte) {
 	case models.CHAT:
 		break  // implement later
 	case models.CODE_MARKUP:
-		messages.HandleCodeMarkupMessage(s, msg.Content)
+		messages.HandleCodeMarkupMessage(s, msg)
 	case models.CODE_STYLING:
 		// css
 	case models.CODE_SCRIPT:
