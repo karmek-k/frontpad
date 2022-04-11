@@ -14,7 +14,9 @@ func routeMessages(s *melody.Session, messageBytes []byte) {
 
 	err := json.Unmarshal(messageBytes, msg)
 	if err != nil {
-		s.Write([]byte("bad message format"))
+		s.CloseWithMsg([]byte("bad message format"))
+
+		return
 	}
 
 	switch msg.Type {
