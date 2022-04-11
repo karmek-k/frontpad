@@ -8,7 +8,7 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/karmek-k/frontpad/pkg/db"
 	"github.com/karmek-k/frontpad/pkg/db/models"
-	"github.com/karmek-k/frontpad/pkg/utils"
+	"github.com/karmek-k/frontpad/utils"
 	uuid "github.com/satori/go.uuid"
 )
 
