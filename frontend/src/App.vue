@@ -1,21 +1,21 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
-</template>
+  <header>
+    <h1>Frontpad</h1>
+    <h3>a basic PoC frontend!</h3>
+  </header>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  <input type="text" id="session-id" placeholder="Leave empty to create" />
+  <button id="create-session-btn">Create a session</button>
+  <button id="connect-btn" disabled>Connect</button>
+  <button id="disconnect-btn" disabled>Disconnect</button>
+
+  <div class="hidden">
+    <textarea
+      name="markup"
+      id="markup"
+      cols="30"
+      rows="10"
+      placeholder="Markup code"
+    ></textarea>
+  </div>
+</template>
