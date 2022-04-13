@@ -2,36 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width='device-width', initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .hidden {
-        display: hidden;
-      }
-    </style>
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
   </head>
   <body>
-    <header>
-      <h1>Frontpad</h1>
-      <h3>a basic PoC frontend!</h3>
-    </header>
-
-    <input type="text" id="session-id" placeholder="Leave empty to create" />
-    <button id="create-session-btn">Create a session</button>
-    <button id="connect-btn" disabled>Connect</button>
-    <button id="disconnect-btn" disabled>Disconnect</button>
-
-    <div class="hidden">
-      <textarea
-        name="markup"
-        id="markup"
-        cols="30"
-        rows="10"
-        placeholder="Markup code"
-      ></textarea>
-    </div>
-
-    <script src="script.js"></script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
