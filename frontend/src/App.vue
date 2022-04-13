@@ -8,6 +8,6 @@ let ws = null;
 
 <template>
   <AppHeader />
-  <ConnectionForm :ws="ws" />
+  <ConnectionForm />
   <CodeEditors v-show="ws !== null" />
 </template>
