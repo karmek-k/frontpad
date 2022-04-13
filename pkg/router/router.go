@@ -15,11 +15,12 @@ func CreateRouter() *chi.Mux {
 	r := chi.NewRouter()
 	m := websocket.CreateWebSocket()
 
-	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 	r.Use(cors.AllowAll().Handler) // TODO: change when deploying
 	
 	r.Route("/api", func(r chi.Router) {
+		r.Use(middleware.Logger)
+
 		r.Route("/session", func(r chi.Router) {
 			r.Post("/", routes.SessionCreate)
 			r.Delete("/{id}", routes.SessionDelete)
