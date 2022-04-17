@@ -2,85 +2,33 @@
 import AppHeader from './components/AppHeader.vue';
 import ConnectionForm from './components/ConnectionForm.vue';
 import CodeEditors from './components/CodeEditors.vue';
-import { reactive } from 'vue';
+import { onMounted, onUnmounted, reactive } from 'vue';
 
 const state = reactive({
   ws: null,
-  isError: false,
-  sessionId: '',
-  isLoading: false
+  sessionId: ''
 });
 
-async function createNewSession(apiUrl) {
-  const res = await fetch(apiUrl, {
-    method: 'POST'
-  });
-  const json = await res.json();
-
-  return json.id;
-}
-
-function handleNewSession() {
-  state.isError = false;
-  state.isLoading = true;
-
-  createNewSession('http://localhost:8000/api/session')
-    .then(id => (state.sessionId = id))
-    .catch(() => (state.isError = true))
-    .finally(() => (state.isLoading = false));
-}
-
-function handleConnectWs() {
-  state.ws = connectWs('ws://localhost:8000/ws');
-}
-
-function handleDisconnectWs() {
-  disconnectWs(false);
-}
-
-function connectWs(url) {
-  if (state.ws !== null) {
-    return null;
-  }
-
-  const ws = new WebSocket(url);
+onMounted(() => {
+  const ws = new WebSocket('ws://localhost:8000/ws');
   ws.addEventListener('error', () => {
-    state.isError = true;
+    alert('WebSocket connection error!');
   });
 
-  ws.addEventListener('open', () => {
-    state.isError = false;
-  });
+  state.ws = ws;
+});
 
-  ws.addEventListener('close', () => {
-    disconnectWs(true);
-  });
-
-  return ws;
-}
-
-function disconnectWs(fromWsCloseEvent) {
-  if (state.ws === null) {
-    return;
-  }
-
-  if (!fromWsCloseEvent) {
-    state.ws.close();
-  }
-
+onUnmounted(() => {
+  state.ws.close();
   state.ws = null;
-}
+});
 </script>
 
 <template>
   <AppHeader />
   <ConnectionForm
-    :is-error="state.isError"
-    :is-connected="isConnected"
-    :disable-create-session="state.sessionId.length > 0"
-    @session-create="handleNewSession"
-    @ws-connect="handleConnectWs"
-    @ws-disconnect="handleDisconnectWs"
+    @session-edit="id => (state.sessionId = id)"
+    @session-connect=""
   />
-  <CodeEditors v-show="isConnected" />
+  <CodeEditors v-show="false" />
 </template>
