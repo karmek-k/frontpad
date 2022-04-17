@@ -8,6 +8,8 @@ const (
 	CODE_STYLING
 	CODE_SCRIPT
 	USER_CONNECT
+	USER_DISCONNECT
+	SESSION_CREATE
 )
 
 type Message struct {

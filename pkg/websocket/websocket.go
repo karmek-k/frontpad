@@ -30,7 +30,8 @@ func routeMessages(s *melody.Session, messageBytes []byte) {
 		// js
 	case models.USER_CONNECT:
 		// user connect
-		fmt.Printf("Hello %s\n", msg.Content)
+	case models.USER_DISCONNECT:
+	case models.SESSION_CREATE:
 	}
 }
 
