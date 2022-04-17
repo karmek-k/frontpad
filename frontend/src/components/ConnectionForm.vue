@@ -1,7 +1,7 @@
 <script setup>
 import { computed, reactive } from 'vue';
 
-defineEmits(['sessionCreate', 'sessionConnect']);
+const emit = defineEmits(['sessionEdit', 'sessionConnect']);
 
 const state = reactive({
   inputText: '',
@@ -27,7 +27,11 @@ function handleNewSession() {
   state.isLoading = true;
 
   createNewSession('http://localhost:8000/api/session')
-    .then(sessId => (state.inputText = sessId))
+    .then(sessId => {
+      state.inputText = sessId;
+      emit('sessionEdit', state.inputText);
+      emit('sessionConnect');
+    })
     .catch(() => (state.isError = true))
     .finally(() => (state.isLoading = false));
 }
@@ -44,7 +48,9 @@ function handleNewSession() {
   <button @click="handleNewSession" :disabled="inputHasText">
     Create a session
   </button>
-  <button @click="" :disabled="!inputHasText">Connect</button>
+  <button @click="$emit('sessionConnect')" :disabled="!inputHasText">
+    Connect
+  </button>
 </template>
 
 <style scoped>

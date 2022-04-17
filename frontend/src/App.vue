@@ -15,6 +15,10 @@ onMounted(() => {
     alert('WebSocket connection error!');
   });
 
+  ws.addEventListener('message', e => {
+    console.log(e.data);
+  });
+
   state.ws = ws;
 });
 
