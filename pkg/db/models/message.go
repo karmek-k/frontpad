@@ -7,6 +7,7 @@ const (
 	CODE_MARKUP
 	CODE_STYLING
 	CODE_SCRIPT
+	USER_CONNECT
 )
 
 type Message struct {

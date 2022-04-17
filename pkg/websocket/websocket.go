@@ -28,6 +28,9 @@ func routeMessages(s *melody.Session, messageBytes []byte) {
 		// css
 	case models.CODE_SCRIPT:
 		// js
+	case models.USER_CONNECT:
+		// user connect
+		fmt.Printf("Hello %s\n", msg.Content)
 	}
 }
 
